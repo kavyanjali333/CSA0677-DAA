@@ -1,0 +1,13 @@
+def odd_string_difference(words):
+    n = len(words[0])
+    diff = [ord(words[0][i+1]) - ord(words[0][i]) for i in range(n-1)]
+    for word in words[1:]:
+        new_diff = [ord(word[i+1]) - ord(word[i]) for i in range(n-1)]
+        if new_diff != diff:
+            return word
+    return None
+
+# Example
+words = ["abc", "def", "ghi"]
+result = odd_string_difference(words)
+print(result)
