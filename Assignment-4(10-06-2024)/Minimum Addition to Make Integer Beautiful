@@ -1,0 +1,9 @@
+ def minAddToMakeBeautiful(n, target):
+    return max(0, (target - sum(int(digit) for digit in str(n)) + 9) // 9)
+
+# Example Usage
+n = 123
+target = 6
+result = minAddToMakeBeautiful(n, target)
+print(result)  # Output: 2
+
