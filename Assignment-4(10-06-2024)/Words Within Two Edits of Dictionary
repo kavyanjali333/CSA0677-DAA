@@ -1,0 +1,40 @@
+
+from collections import defaultdict
+
+def is_edit_distance_one(word1, word2):
+    if len(word1) != len(word2):
+        return False
+    count_diff = 0
+    for c1, c2 in zip(word1, word2):
+        if c1 != c2:
+            count_diff += 1
+            if count_diff > 1:
+                return False
+    return count_diff == 1
+
+def is_edit_distance_two(word1, word2):
+    if len(word1) != len(word2):
+        return False
+    count_diff = 0
+    for c1, c2 in zip(word1, word2):
+        if c1 != c2:
+            count_diff += 1
+            if count_diff > 2:
+                return False
+    return count_diff == 2
+
+def words_within_two_edits(queries, dictionary):
+    word_dict = defaultdict(list)
+    for word in dictionary:
+        word_dict[len(word)].append(word)
+    
+    result = []
+    for query in queries:
+        len_query = len(query)
+        if len_query in word_dict:
+            for word in word_dict[len_query]:
+                if query == word or is_edit_distance_one(query, word) or is_edit_distance_two(query, word):
+                    result.append(query)
+                    break
+    
+    return result
