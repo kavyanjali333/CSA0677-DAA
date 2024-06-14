@@ -1,0 +1,20 @@
+def min_penalty(customers: str) -> int:
+    n = len(customers)
+    ones_row = [0] * n
+    zeros_row = [0] * n
+    ones_col = [0] * n
+    zeros_col = [0] * n
+
+    for i in range(n):
+        ones_row[i] = ones_row[i - 1] + (customers[i] == 'Y')
+        zeros_row[i] = zeros_row[i - 1] + (customers[i] == 'N')
+
+    for i in range(n - 1, -1, -1):
+        ones_col[i] = ones_col[i + 1] + (customers[i] == 'Y')
+        zeros_col[i] = zeros_col[i + 1] + (customers[i] == 'N')
+
+    min_penalty = float('inf')
+    for i in range(n):
+        min_penalty = min(min_penalty, zeros_row[i] + ones_col[i])
+
+    return min_penalty
