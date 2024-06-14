@@ -1,0 +1,17 @@
+.FormaChemicalBond
+ SQLSchema
+ Table:Elements
+ +-------------+---------+
+ |ColumnName|Type |
+ +-------------+---------+
+ |symbol |varchar|
+ | type |enum |
+ |electrons | int |
+ +-------------+---------+
+ symbolistheprimarykeyforthistable.
+ Eachrowofthistablecontainsinformationofoneelement.
+ typeisanENUMoftype('Metal', 'Nonmetal', 'Noble')-IftypeisNoble,electronsis0.-IftypeisMetal,electronsisthenumberofelectronsthatoneatomofthiselementcangive.-IftypeisNonmetal,electronsisthenumberofelectronsthatoneatomofthiselement
+ needs.
+ Twoelementscanformabondifoneofthemis'Metal'andtheotheris'Nonmetal'.WriteanSQL
+ querytofindallthepairsofelementsthatcanformabond.Returntheresulttableinany
+ order.Thequeryresultformatisinthefollowingexampl
