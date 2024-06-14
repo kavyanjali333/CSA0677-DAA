@@ -1,0 +1,28 @@
+from collections import deque
+
+def minOperations(root):
+    def inorder(node, level):
+        if not node:
+            return
+        inorder(node.left, level + 1)
+        levels[level].append(node.val)
+        inorder(node.right, level + 1)
+
+    def isSorted(arr):
+        return all(arr[i] < arr[i + 1] for i in range(len(arr) - 1))
+
+    def countOperations(arr):
+        operations = 0
+        while not isSorted(arr):
+            for i in range(len(arr) - 1):
+                if arr[i] > arr[i + 1]:
+                    arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                    operations += 1
+        return operations
+
+    levels = defaultdict(list)
+    inorder(root, 0)
+    totalOperations = 0
+    for level in levels.values():
+        totalOperations += countOperations(level)
+    return totalOperations
