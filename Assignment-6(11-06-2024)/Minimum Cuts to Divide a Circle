@@ -1,0 +1,7 @@
+def min_cuts_to_divide_circle(n):
+    return n * (n - 1) // 2 + 1
+
+# Example Usage
+n = 5
+min_cuts = min_cuts_to_divide_circle(n)
+print(f"The minimum number of cuts needed to divide a circle into {n} equal slices is: {min_cuts}")
