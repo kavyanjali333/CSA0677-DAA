@@ -1,0 +1,35 @@
+class Tree
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+def max_xor_subtrees(root, values):
+    def dfs(node):
+        if not node:
+            return 0
+        val = node.val
+        val ^= dfs(node.left)
+        val ^= dfs(node.right)
+        return val
+
+    def max_xor(node):
+        nonlocal max_xor_val
+        if not node:
+            return
+        max_xor_val = max(max_xor_val, dfs(node) + dfs(root) - 2 * dfs(node))
+        max_xor(node.left)
+        max_xor(node.right)
+
+    max_xor_val = 0
+    max_xor(root)
+    return max_xor_val
+
+# Example Usage
+root = TreeNode(0)
+root.left = TreeNode(1)
+root.right = TreeNode(2)
+root.left.left = TreeNode(3)
+root.left.right = TreeNode(4)
+values = [4, 5, 7, 2, 8]
+print(max_xor_subtrees(root, values))  # Output: 20
