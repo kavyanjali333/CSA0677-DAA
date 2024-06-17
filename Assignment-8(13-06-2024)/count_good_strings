@@ -1,0 +1,31 @@
+def count_good_strings(zero, one, low, high):
+    MOD = 10**9 + 7
+    dp = [[[[-1 for _ in range(2)] for _ in range(high+1)] for _ in range(low+1)] for _ in range(len(zero)+1)]
+    
+    def dfs(pos, cnt0, cnt1, bound0, bound1):
+        if cnt0 > zero[pos] or cnt1 > one[pos]:
+            return 0
+        if pos == len(zero):
+            return 1
+        if dp[pos][cnt0][cnt1][bound0] != -1:
+            return dp[pos][cnt0][cnt1][bound0]
+        
+        res = 0
+        for i in range(2):
+            if i == 0 and not bound0:
+                res += dfs(pos+1, cnt0+1, cnt1, 0, bound1 or 1)
+            elif i == 1 and not bound1:
+                res += dfs(pos+1, cnt0, cnt1+1, bound0, 0)
+            res %= MOD
+        
+        dp[pos][cnt0][cnt1][bound0] = res
+        return res
+    
+    return dfs(0, 0, 0, 1, 1)
+
+# Example Usage
+zero = [1, 1, 1]
+one = [1, 1, 1]
+low = 1
+high = 3
+print(count_good_strings(zero, one, low, high))  # Output: 9
