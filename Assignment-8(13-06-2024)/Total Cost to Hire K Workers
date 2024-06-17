@@ -1,0 +1,23 @@
+def mincostToHireWorkers(costs, k, candidates):
+    n = len(costs)
+    cost_ratio = sorted([(cost/quality, cost, quality) for cost, quality in costs])
+    heap = []
+    total_cost, min_cost = float('inf'), 0
+
+    for ratio, cost, quality in cost_ratio:
+        heapq.heappush(heap, -quality)
+        min_cost += quality
+
+        if len(heap) > candidates:
+            min_cost += heapq.heappop(heap)
+
+        if len(heap) == candidates:
+            total_cost = min(total_cost, min_cost * ratio)
+
+    return total_cost
+
+# Example
+costs = [3, 2, 7, 7, 1, 2]
+k = 2
+candidates = 2
+print(mincostToHireWorkers(costs, k, candidates))
