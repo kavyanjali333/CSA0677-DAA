@@ -1,0 +1,22 @@
+
+def maxSumOfDistinctSubarrays(nums, k):
+    if len(nums) < k:
+        return 0
+    
+    seen = set()
+    window_sum = 0
+    max_sum = 0
+    
+    for i in range(len(nums) - k + 1):
+        window = nums[i:i+k]
+        if len(set(window)) == k and tuple(window) not in seen:
+            seen.add(tuple(window))
+            window_sum = sum(window)
+            max_sum = max(max_sum, window_sum)
+    
+    return max_sum
+
+# Example Usage
+nums = [1, 2, 1, 3, 4, 3]
+k = 3
+print(maxSumOfDistinctSubarrays(nums, k))  # Output: 8
