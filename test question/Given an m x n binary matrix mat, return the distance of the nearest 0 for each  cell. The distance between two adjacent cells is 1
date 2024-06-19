@@ -1,0 +1,18 @@
+from collections import deque
+
+def updateMatrix(mat):
+    rows, cols = len(mat), len(mat[0])
+    queue = deque()
+
+    for i in range(rows):
+        for j in range(cols):
+            if mat[i][j] == 0:
+                queue.append((i, j))
+            else:
+                mat[i][j] = float('inf')
+
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+    while queue:
+        cell = queue.popleft()
+        for d in directions
