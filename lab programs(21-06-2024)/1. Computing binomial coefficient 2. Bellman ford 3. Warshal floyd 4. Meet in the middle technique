@@ -1,0 +1,84 @@
+import math
+
+def binomial_coefficient(n, k):
+    return math.comb(n, k)
+
+n = 5
+k = 2
+result = binomial_coefficient(n, k)
+print(f"Binomial Coefficient of ({n}, {k}): {result}")
+
+
+2.
+def bellman_ford(graph, source):
+    distance = {node: float('infinity') for node in graph}
+    distance[source] = 0
+
+    for _ in range(len(graph) - 1):
+        for u, v, w in graph:
+            if distance[u] + w < distance[v]:
+                distance[v] = distance[u] + w
+
+    for u, v, w in graph:
+        if distance[u] + w < distance[v]:
+            print("Graph contains negative weight cycle")
+            return
+
+    return distance
+
+# Example graph representation: (u, v, w) -> edge from u to v with weight w
+graph = [(0, 1, -1), (0, 2, 4), (1, 2, 3), (1, 3, 2), (1, 4, 2), (3, 2, 5), (3, 1, 1), (4, 3, -3)]
+source_node = 0
+result = bellman_ford(graph, source_node)
+print("Shortest distances:", result)
+
+
+3.
+def floyd_warshall(graph):
+    distance = graph.copy()
+
+    for k in graph:
+        for i in graph:
+            for j in graph:
+                distance[i][j] = min(distance[i][j], distance[i][k] + distance[k][j])
+
+    return distance
+
+# Example graph represented as a matrix
+graph = [
+    [0, 5, float('inf'), 10],
+    [float('inf'), 0, 3, float('inf')],
+    [float('inf'), float('inf'), 0, 1],
+    [float('inf'), float('inf'), float('inf'), 0]
+]
+result = floyd_warshall(graph)
+print("Shortest distances:")
+for row in result:
+    print(row)
+
+
+4.def meet_in_the_middle(arr, target):
+    half = len(arr) // 2
+    left_half = arr[:half]
+    right_half = arr[half:]
+
+    left_combinations = [sum(comb) for comb in itertools.chain.from_iterable(itertools.combinations(left_half, r) for r in range(len(left_half) + 1))]
+    right_combinations = [sum(comb) for comb in itertools.chain.from_iterable(itertools.combinations(right_half, r) for r in range(len(right_half) + 1)]
+
+    right_combinations.sort()
+
+    count = 0
+    for sum_left in left_combinations:
+        if sum_left <= target:
+            count += bisect_right(right_combinations, target - sum_left)
+
+    return count
+
+import itertools
+from bisect import bisect_right
+
+arr = [1, 2, 3, 4, 5]
+target_sum = 7
+ways = meet_in_the_middle(arr, target_sum)
+print(f"Number of ways to get the target sum: {ways}")
+
