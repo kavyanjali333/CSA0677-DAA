@@ -1,0 +1,14 @@
+def longestNiceSubstring(s):
+    nice_substring = ""
+    for i in range(len(s)):
+        for j in range(i+1, len(s)+1):
+            substring = s[i:j]
+            if all(substring.lower().count(char) > 0 and substring.upper().count(char) > 0 for char in set(substring.lower())):
+                if len(substring) > len(nice_substring):
+                    nice_substring = substring
+    return nice_substring
+
+# Test the function with the provided example
+s = "YazaAay"
+output = longestNiceSubstring(s)
+print(output)
