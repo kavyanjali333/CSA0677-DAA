@@ -1,0 +1,9 @@
+from itertools import permutations
+
+def compute_permutations(arr):
+    perm = permutations(arr)
+    for p in list(perm):
+        print(p)
+
+arr = [1, 2, 3]
+compute_permutations(arr)
