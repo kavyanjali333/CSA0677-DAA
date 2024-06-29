@@ -1,0 +1,17 @@
+def rob(nums):
+    def rob_range(start, end):
+        rob_next, rob_curr = 0, 0
+        for i in range(start, end):
+            rob_next, rob_curr = max(rob_curr + nums[i], rob_next), rob_next
+        return rob_next
+
+    if len(nums) == 1:
+        return nums[0]
+    return max(rob_range(0, len(nums) - 1), rob_range(1, len(nums)))
+
+# Examples
+nums1 = [2, 3, 2]
+nums2 = [1, 2, 3, 1]
+
+print("The maximum money you can rob without alerting the police is:", rob(nums1))  # Output: 3
+print("The maximum money you can rob without alerting the police is:", rob(nums2))  # Output: 4
