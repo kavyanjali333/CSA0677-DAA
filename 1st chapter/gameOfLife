@@ -1,0 +1,30 @@
+def gameOfLife(board):
+    m = len(board)
+    n = len(board[0])
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+    
+    def countLiveNeighbors(board, i, j):
+        count = 0
+        for direction in directions:
+            x = i + direction[0]
+            y = j + direction[1]
+            if 0 <= x < m and 0 <= y < n and (board[x][y] == 1 or board[x][y] == -1):
+                count += 1
+        return count
+    
+    for i in range(m):
+        for j in range(n):
+            liveNeighbors = countLiveNeighbors(board, i, j)
+            if board[i][j] == 1 and (liveNeighbors < 2 or liveNeighbors > 3):
+                board[i][j] = -1
+            elif board[i][j] == 0 and liveNeighbors == 3:
+                board[i][j] = 2
+    
+    for i in range(m):
+        for j in range(n):
+            if board[i][j] == -1:
+                board[i][j] = 0
+            elif board[i][j] == 2:
+                board[i][j] = 1
+    
+    return board
